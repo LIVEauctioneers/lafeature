@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/amplitude/experiment-go-server/internal/evaluation"
+	"github.com/LIVEauctioneers/lafeature/internal/evaluation"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -451,7 +451,7 @@ func TestFlagConfigFallbackRetryWrapperMainUpdatingFailFallbackStartFail(t *test
 		return errors.New("fallback start fail")
 	}
 	fallback.stopFunc = func() {}
-	w := newflagConfigFallbackRetryWrapper(&main, &fallback, 1100 * time.Millisecond, 0, 500 * time.Millisecond, 0, true)
+	w := newflagConfigFallbackRetryWrapper(&main, &fallback, 1100*time.Millisecond, 0, 500*time.Millisecond, 0, true)
 	// Start success
 	err := w.Start(nil)
 	assert.Nil(t, err)

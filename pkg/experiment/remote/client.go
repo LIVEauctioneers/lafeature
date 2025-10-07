@@ -12,9 +12,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/amplitude/experiment-go-server/pkg/experiment"
+	"github.com/LIVEauctioneers/lafeature/pkg/experiment"
 
-	"github.com/amplitude/experiment-go-server/internal/logger"
+	"github.com/LIVEauctioneers/lafeature/internal/logger"
 )
 
 var clients = map[string]*Client{}

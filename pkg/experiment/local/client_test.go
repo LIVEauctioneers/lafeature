@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/amplitude/experiment-go-server/pkg/experiment"
+	"github.com/LIVEauctioneers/lafeature/pkg/experiment"
 	"github.com/joho/godotenv"
 )
 

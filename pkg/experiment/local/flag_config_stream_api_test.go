@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/amplitude/experiment-go-server/internal/evaluation"
+	"github.com/LIVEauctioneers/lafeature/internal/evaluation"
 	"github.com/stretchr/testify/assert"
 )
 

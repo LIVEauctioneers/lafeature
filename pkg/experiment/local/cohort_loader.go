@@ -6,7 +6,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/amplitude/experiment-go-server/internal/logger"
+	"github.com/LIVEauctioneers/lafeature/internal/logger"
 )
 
 type cohortLoader struct {

@@ -7,9 +7,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/amplitude/experiment-go-server/pkg/experiment"
-	"github.com/amplitude/experiment-go-server/pkg/experiment/local"
-	"github.com/amplitude/experiment-go-server/pkg/experiment/remote"
+	"github.com/LIVEauctioneers/lafeature/pkg/experiment"
+	"github.com/LIVEauctioneers/lafeature/pkg/experiment/local"
+	"github.com/LIVEauctioneers/lafeature/pkg/experiment/remote"
 )
 
 func main() {

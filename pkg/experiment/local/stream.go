@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/amplitude/experiment-go-server/pkg/experiment"
+	"github.com/LIVEauctioneers/lafeature/pkg/experiment"
 	"github.com/r3labs/sse/v2"
 	"gopkg.in/cenkalti/backoff.v1"
 )

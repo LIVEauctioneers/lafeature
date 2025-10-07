@@ -1,7 +1,7 @@
 package evaluation
 
 import (
-	"github.com/amplitude/experiment-go-server/pkg/experiment"
+	"github.com/LIVEauctioneers/lafeature/pkg/experiment"
 )
 
 func UserToContext(user *experiment.User) map[string]interface{} {

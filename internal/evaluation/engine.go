@@ -3,12 +3,13 @@ package evaluation
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/amplitude/experiment-go-server/internal/logger"
-	"github.com/spaolacci/murmur3"
 	"reflect"
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/LIVEauctioneers/lafeature/internal/logger"
+	"github.com/spaolacci/murmur3"
 )
 
 type Engine struct {

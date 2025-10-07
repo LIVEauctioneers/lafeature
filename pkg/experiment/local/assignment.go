@@ -1,10 +1,11 @@
 package local
 
 import (
-	"github.com/amplitude/experiment-go-server/pkg/experiment"
 	"sort"
 	"strings"
 	"time"
+
+	"github.com/LIVEauctioneers/lafeature/pkg/experiment"
 )
 
 type assignment struct {

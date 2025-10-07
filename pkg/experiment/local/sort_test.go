@@ -1,9 +1,10 @@
 package local
 
 import (
-	"github.com/amplitude/experiment-go-server/internal/evaluation"
 	"reflect"
 	"testing"
+
+	"github.com/LIVEauctioneers/lafeature/internal/evaluation"
 )
 
 func TestEmpty(t *testing.T) {

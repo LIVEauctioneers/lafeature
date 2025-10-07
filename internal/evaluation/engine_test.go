@@ -4,13 +4,14 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/amplitude/experiment-go-server/internal/logger"
-	"github.com/amplitude/experiment-go-server/pkg/experiment"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
 	"time"
+
+	"github.com/LIVEauctioneers/lafeature/internal/logger"
+	"github.com/LIVEauctioneers/lafeature/pkg/experiment"
 
 	//"os"
 	"testing"
