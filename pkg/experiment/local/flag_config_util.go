@@ -1,7 +1,7 @@
 package local
 
 import (
-	"github.com/amplitude/experiment-go-server/internal/evaluation"
+	"github.com/LIVEauctioneers/lafeature/internal/evaluation"
 )
 
 func isCohortFilter(condition *evaluation.Condition) bool {

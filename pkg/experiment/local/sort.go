@@ -2,7 +2,8 @@ package local
 
 import (
 	"fmt"
-	"github.com/amplitude/experiment-go-server/internal/evaluation"
+
+	"github.com/LIVEauctioneers/lafeature/internal/evaluation"
 )
 
 func topologicalSort(flags map[string]*evaluation.Flag, flagKeys []string) ([]*evaluation.Flag, error) {

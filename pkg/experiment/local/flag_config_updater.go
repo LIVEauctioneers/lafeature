@@ -4,8 +4,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/amplitude/experiment-go-server/internal/evaluation"
-	"github.com/amplitude/experiment-go-server/internal/logger"
+	"github.com/LIVEauctioneers/lafeature/internal/evaluation"
+	"github.com/LIVEauctioneers/lafeature/internal/logger"
 )
 
 type flagConfigUpdater interface {
@@ -149,7 +149,7 @@ func (s *flagConfigStreamer) Start(onError func(error)) error {
 		func(err error) {
 			s.Stop()
 			if onError != nil {
-				go func() {onError(err)}()
+				go func() { onError(err) }()
 			}
 		},
 	)
@@ -205,8 +205,8 @@ func (p *flagConfigPoller) Start(onError func(error)) error {
 		if err := p.periodicRefresh(); err != nil {
 			p.log.Error("Periodic updateFlagConfigs failed: %v", err)
 			p.Stop()
-			if (onError != nil) {
-				go func() {onError(err)}()
+			if onError != nil {
+				go func() { onError(err) }()
 			}
 		}
 	})
@@ -249,17 +249,17 @@ func (p *flagConfigPoller) Stop() {
 // A wrapper around flag config updaters to retry and fallback.
 // If the main updater fails, it will fallback to the fallback updater and main updater enters retry loop.
 type flagConfigFallbackRetryWrapper struct {
-	log             *logger.Log
-	mainUpdater     flagConfigUpdater
-	fallbackUpdater flagConfigUpdater
-	retryDelay      time.Duration
-	maxJitter       time.Duration
-	retryTimer      *time.Timer
-	fallbackStartRetryDelay      time.Duration
-	fallbackStartRetryMaxJitter       time.Duration
-	fallbackStartRetryTimer *time.Timer
-	lock            sync.Mutex
-	isRunning       bool
+	log                         *logger.Log
+	mainUpdater                 flagConfigUpdater
+	fallbackUpdater             flagConfigUpdater
+	retryDelay                  time.Duration
+	maxJitter                   time.Duration
+	retryTimer                  *time.Timer
+	fallbackStartRetryDelay     time.Duration
+	fallbackStartRetryMaxJitter time.Duration
+	fallbackStartRetryTimer     *time.Timer
+	lock                        sync.Mutex
+	isRunning                   bool
 }
 
 func newflagConfigFallbackRetryWrapper(
@@ -267,19 +267,19 @@ func newflagConfigFallbackRetryWrapper(
 	fallbackUpdater flagConfigUpdater,
 	retryDelay time.Duration,
 	maxJitter time.Duration,
-	fallbackStartRetryDelay      time.Duration,
-	fallbackStartRetryMaxJitter       time.Duration,
+	fallbackStartRetryDelay time.Duration,
+	fallbackStartRetryMaxJitter time.Duration,
 	debug bool,
 ) flagConfigUpdater {
 	return &flagConfigFallbackRetryWrapper{
-		log:             logger.New(debug),
-		mainUpdater:     mainUpdater,
-		fallbackUpdater: fallbackUpdater,
-		retryDelay:      retryDelay,
-		maxJitter:       maxJitter,
-		fallbackStartRetryDelay:      fallbackStartRetryDelay,
-		fallbackStartRetryMaxJitter:       fallbackStartRetryMaxJitter,
-		isRunning: false,
+		log:                         logger.New(debug),
+		mainUpdater:                 mainUpdater,
+		fallbackUpdater:             fallbackUpdater,
+		retryDelay:                  retryDelay,
+		maxJitter:                   maxJitter,
+		fallbackStartRetryDelay:     fallbackStartRetryDelay,
+		fallbackStartRetryMaxJitter: fallbackStartRetryMaxJitter,
+		isRunning:                   false,
 	}
 }
 
@@ -362,7 +362,7 @@ func (w *flagConfigFallbackRetryWrapper) scheduleRetry() {
 	w.lock.Lock()
 	defer w.lock.Unlock()
 
-	if (!w.isRunning) {
+	if !w.isRunning {
 		return
 	}
 
@@ -374,7 +374,7 @@ func (w *flagConfigFallbackRetryWrapper) scheduleRetry() {
 		w.lock.Lock()
 		defer w.lock.Unlock()
 
-		if (!w.isRunning) {
+		if !w.isRunning {
 			return
 		}
 
@@ -408,15 +408,15 @@ func (w *flagConfigFallbackRetryWrapper) fallbackStart() {
 	w.lock.Lock()
 	defer w.lock.Unlock()
 
-	if (!w.isRunning) {
+	if !w.isRunning {
 		return
 	}
-	if (w.fallbackUpdater == nil) {
+	if w.fallbackUpdater == nil {
 		return
 	}
 
 	err := w.fallbackUpdater.Start(nil)
-	if (err != nil) {
+	if err != nil {
 		w.log.Debug("fallback updater start failed and scheduling retry")
 		w.fallbackStartRetryTimer = time.AfterFunc(randTimeDuration(w.fallbackStartRetryDelay, w.fallbackStartRetryMaxJitter), func() {
 			w.fallbackStart()

@@ -4,11 +4,12 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/amplitude/experiment-go-server/internal/logger"
-	"github.com/amplitude/experiment-go-server/pkg/experiment"
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/LIVEauctioneers/lafeature/internal/logger"
+	"github.com/LIVEauctioneers/lafeature/pkg/experiment"
 )
 
 const cohortRequestDelay = 100 * time.Millisecond

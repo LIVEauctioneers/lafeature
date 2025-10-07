@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/amplitude/experiment-go-server/internal/evaluation"
+	"github.com/LIVEauctioneers/lafeature/internal/evaluation"
 )
 
 const streamApiMaxJitter = 5 * time.Second

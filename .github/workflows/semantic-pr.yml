@@ -38,6 +38,6 @@ jobs:
           !startsWith(github.event.pull_request.title, 'chore:') && !startsWith(github.event.pull_request.title, 'chore(') &&
           !startsWith(github.event.pull_request.title, 'revert:') && !startsWith(github.event.pull_request.title, 'revert(')
         run: |
-          echo 'Pull request title is not valid. Please check https://github.com/amplitude/experiment-go-server/blob/main/CONTRIBUTING.md#pr-commit-title-conventions'
+          echo 'Pull request title is not valid. Please check https://github.com/LIVEauctioneers/lafeature/blob/main/CONTRIBUTING.md#pr-commit-title-conventions'
           exit 1
   

@@ -1,4 +1,4 @@
-module github.com/amplitude/experiment-go-server
+module github.com/LIVEauctioneers/lafeature
 
 go 1.12
 

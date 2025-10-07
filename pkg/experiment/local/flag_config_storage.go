@@ -3,7 +3,7 @@ package local
 import (
 	"sync"
 
-	"github.com/amplitude/experiment-go-server/internal/evaluation"
+	"github.com/LIVEauctioneers/lafeature/internal/evaluation"
 )
 
 type flagConfigStorage interface {

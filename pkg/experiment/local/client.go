@@ -12,11 +12,11 @@ import (
 
 	"github.com/amplitude/analytics-go/amplitude"
 
-	"github.com/amplitude/experiment-go-server/internal/evaluation"
+	"github.com/LIVEauctioneers/lafeature/internal/evaluation"
 
-	"github.com/amplitude/experiment-go-server/pkg/experiment"
+	"github.com/LIVEauctioneers/lafeature/pkg/experiment"
 
-	"github.com/amplitude/experiment-go-server/internal/logger"
+	"github.com/LIVEauctioneers/lafeature/internal/logger"
 )
 
 var clients = map[string]*Client{}

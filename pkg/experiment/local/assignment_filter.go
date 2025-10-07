@@ -1,8 +1,9 @@
 package local
 
 import (
-	"github.com/amplitude/experiment-go-server/internal/cache"
 	"sync"
+
+	"github.com/LIVEauctioneers/lafeature/internal/cache"
 )
 
 type assignmentFilter struct {

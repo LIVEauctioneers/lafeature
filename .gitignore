@@ -3,3 +3,7 @@ xpmt
 .DS_Store
 cmd/xpmt/bin/
 pkg/experiment/local/.env
+
+
+#Ignore vscode AI rules
+.github/instructions/codacy.instructions.md

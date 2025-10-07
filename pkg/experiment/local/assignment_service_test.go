@@ -2,9 +2,10 @@ package local
 
 import (
 	"fmt"
-	"github.com/amplitude/experiment-go-server/pkg/experiment"
 	"reflect"
 	"testing"
+
+	"github.com/LIVEauctioneers/lafeature/pkg/experiment"
 )
 
 func TestToEvent(t *testing.T) {

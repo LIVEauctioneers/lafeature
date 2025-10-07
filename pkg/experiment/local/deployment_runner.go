@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/amplitude/experiment-go-server/internal/logger"
+	"github.com/LIVEauctioneers/lafeature/internal/logger"
 )
 
 type deploymentRunner struct {
