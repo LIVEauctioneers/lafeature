@@ -2,14 +2,20 @@ package lafeature
 
 import "github.com/LIVEauctioneers/lafeature/pkg/experiment/local"
 
-type SimpleFlagManager = local.SimpleFlagManager
-type SimpleFlagManagerConfig = local.SimpleFlagManagerConfig
+type FlagManager interface {
+	Start() error
+	Stop()
+	MustEnabled(flagKey string) (enabled bool)
+	Enabled(flagKey string) (enabled bool, ok bool)
+	GetAll() map[string]bool
+}
+type FlagConfig = local.SimpleFlagManagerConfig
 
-// NewSimpleFlagManager creates a new SimpleFlagManager with default configuration.
+// NewFlagManager creates a new FlagManager with default configuration.
 // You can customize the configuration by modifying the returned manager's fields.
 // func main() {
 // 	// Create flag manager with API key and config
-// 	manager := NewSimpleFlagManager("YOUR_API_KEY", SimpleFlagManagerConfig{
+// 	manager := NewFlagManager("YOUR_API_KEY", FlagConfig{
 // 		Timeout: 10 * time.Second,
 // 		Debug:   false,
 // 	})
@@ -36,6 +42,6 @@ type SimpleFlagManagerConfig = local.SimpleFlagManagerConfig
 //		fmt.Println("Listening for flag updates...")
 //		time.Sleep(60 * time.Second)
 //	}
-func NewSimpleFlagManager(config SimpleFlagManagerConfig) *SimpleFlagManager {
+func NewFlagManager(config FlagConfig) FlagManager {
 	return local.NewSimpleFlagManager("", config)
 }
