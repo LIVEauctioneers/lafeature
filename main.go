@@ -42,6 +42,6 @@ type FlagConfig = local.SimpleFlagManagerConfig
 //		fmt.Println("Listening for flag updates...")
 //		time.Sleep(60 * time.Second)
 //	}
-func NewFlagManager(config FlagConfig) FlagManager {
-	return local.NewSimpleFlagManager("", config)
+func NewFlagManager(apiKey string, config FlagConfig) FlagManager {
+	return local.NewSimpleFlagManager(apiKey, config)
 }

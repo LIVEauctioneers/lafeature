@@ -9,7 +9,7 @@ import (
 
 // SimpleFlagManagerConfig holds configuration for SimpleFlagManager
 type SimpleFlagManagerConfig struct {
-	// Timeout for API requests (default: 10s)
+	// Timeout for API requests (default: 2s)
 	Timeout time.Duration
 	// Enable debug logging (default: false)
 	Debug bool
