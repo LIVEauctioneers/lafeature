@@ -13,6 +13,8 @@ type SimpleFlagManagerConfig struct {
 	Timeout time.Duration
 	// Enable debug logging (default: false)
 	Debug bool
+	// OnFlagChange is called when any flag changes (flag key, enabled status)
+	OnFlagChange func(flagKey string, enabled bool)
 }
 
 // SimpleFlagManager provides a simple interface to check if flags are enabled
@@ -40,8 +42,11 @@ func NewSimpleFlagManager(apiKey string, config SimpleFlagManagerConfig) *Simple
 	// Force streaming to be enabled
 	internalConfig.StreamUpdates = true
 
-	// Wrap storage with release flag filter
-	flagConfigStorage := newReleaseFlagStorage(newInMemoryFlagConfigStorage())
+	// Wrap storage with release flag filter and optional callback
+	flagConfigStorage := newCallbackFlagStorage(
+		newReleaseFlagStorage(newInMemoryFlagConfigStorage()),
+		config.OnFlagChange,
+	)
 	log := logger.New(internalConfig.Debug)
 
 	// Setup streamer with poller fallback
@@ -166,6 +171,48 @@ func (r *releaseFlagStorage) putFlagConfig(flagConfig *evaluation.Flag) {
 
 func (r *releaseFlagStorage) removeIf(condition func(*evaluation.Flag) bool) {
 	r.storage.removeIf(condition)
+}
+
+// callbackFlagStorage wraps flagConfigStorage to invoke a callback on flag changes
+type callbackFlagStorage struct {
+	storage    flagConfigStorage
+	onFlagChange func(flagKey string, enabled bool)
+}
+
+func newCallbackFlagStorage(storage flagConfigStorage, onFlagChange func(flagKey string, enabled bool)) flagConfigStorage {
+	if onFlagChange == nil {
+		return storage
+	}
+	return &callbackFlagStorage{storage: storage, onFlagChange: onFlagChange}
+}
+
+func (c *callbackFlagStorage) getFlagConfig(key string) *evaluation.Flag {
+	return c.storage.getFlagConfig(key)
+}
+
+func (c *callbackFlagStorage) getFlagConfigs() map[string]*evaluation.Flag {
+	return c.storage.getFlagConfigs()
+}
+
+func (c *callbackFlagStorage) getFlagConfigsArray() []*evaluation.Flag {
+	return c.storage.getFlagConfigsArray()
+}
+
+func (c *callbackFlagStorage) putFlagConfig(flagConfig *evaluation.Flag) {
+	oldFlag := c.storage.getFlagConfig(flagConfig.Key)
+	oldEnabled := isFlagEnabled(oldFlag)
+	newEnabled := isFlagEnabled(flagConfig)
+
+	c.storage.putFlagConfig(flagConfig)
+
+	// Only fire callback if the enabled status actually changed
+	if oldFlag == nil || oldEnabled != newEnabled {
+		c.onFlagChange(flagConfig.Key, newEnabled)
+	}
+}
+
+func (c *callbackFlagStorage) removeIf(condition func(*evaluation.Flag) bool) {
+	c.storage.removeIf(condition)
 }
 
 // isReleaseFlag checks if a flag is a release flag
